@@ -108,17 +108,26 @@ public class Interpreter {
                             System.out.println(evaluate(list.get(2), env));
                         }
                         return null;
+                    case "defun":
+                        List<Object> control = (List<Object>) list.get(1);
+                        List<Object> control2 = (List<Object>) list.get(2);
+                        System.out.println(control.get(0));
+                        System.out.println(control2.get(0));
+                        BinaryOperator<Number> function = (BinaryOperator<Number>) global.get(control2.get(0));
+                        global.put(control.get(0), function);
                     default:
                         Object proc = env.get(elemento);
                         Object[] args = new Object[list.size() - 1];
                         for (int i = 0; i < args.length; ++i) {
                             args[i] = evaluate(list.get(i + 1), env);
+                            System.out.println(args[i]);
                         }
                         if (proc instanceof UnaryOperator) {
                             @SuppressWarnings("unchecked")
                             UnaryOperator<Object> op = (UnaryOperator<Object>) proc;
                             return op.apply(args[0]);
                         } else if (proc instanceof BinaryOperator) {
+                            System.out.println(proc);
                             @SuppressWarnings("unchecked")
                             BinaryOperator<Object> op = (BinaryOperator<Object>) proc;
                             return op.apply(args[0], args[1]);
