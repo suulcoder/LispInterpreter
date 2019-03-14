@@ -5,6 +5,9 @@ import javafx.scene.AmbientLight;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +18,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.stream.Stream;
 import javax.swing.*;
 
 public class Main extends JFrame implements ActionListener{
@@ -66,29 +70,36 @@ public class Main extends JFrame implements ActionListener{
             interprete.getGlobal().put("abs", (UnaryOperator<Number>) Interpreter::abs);
             interprete.getGlobal().put("-", (BinaryOperator<Number>) Interpreter::subtract);
             interprete.getGlobal().put("/", (BinaryOperator<Number>) Interpreter::divide);
+            final Integer[] lineCounter = {1};
 
-            while (true) {
-                System.out.print(">>>");
-                String input = textField.getText();
-                System.out.println(input);
-                try {
-                    input = br.readLine();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                if (input == null || input.equals("quit")) break;
-                try {
-                    String retorno = " ";
-                    retorno = retorno + Arrays.toString(Interpreter.reemplazar(input)) + "\n";
-                    retorno = retorno + Interpreter.leer(input) + "\n";
-                    System.out.println(retorno);
-                    retorno = retorno + Interpreter.evaluate(Interpreter.leer(input)) + "\n";
-                    salida.setText(retorno);
-                    System.out.println(retorno);
-                } catch (Exception f) {
-                    f.printStackTrace();
-                }
+            try {
+                Stream<String> lines = Files.lines(
+                        Paths.get("datos.txt"),
+                        StandardCharsets.UTF_8
+                );
+                lines.forEach(s ->{
+                    if (s == null || s.equals("quit"))
+                    try {
+                        String retorno = " ";
+                        retorno = retorno + Arrays.toString(Interpreter.reemplazar(s)) + "\n";
+                        retorno = retorno + Interpreter.leer(s) + "\n";
+                        System.out.println(retorno);
+                        retorno = retorno + Interpreter.evaluate(Interpreter.leer(s)) + "\n";
+                        salida.setText(retorno);
+                        System.out.println(retorno);
+                        lineCounter[0] +=1;
+
+                    } catch (Exception f) {
+                        f.printStackTrace();
+                        System.out.println("Error en linea"+lineCounter[0]);
+                    }
+
+                });
+            }catch (IOException exception){
+                System.out.println("Error");
             }
+
+
         }
         else{
             if("RESET".equals((e.getActionCommand()))){

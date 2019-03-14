@@ -126,6 +126,16 @@ public class Interpreter {
                             System.out.println("There is something wrong with your Function");
                         }
                         return null;
+                    case "atom":
+                        try{
+                            if (list.get(1) instanceof String || list.get(1) instanceof Integer){
+                                return true;
+                            }
+                            return false;
+
+                        }catch (Exception e){
+                            System.out.println("There is an error with an ATOM");
+                        }
                     default:
                         Object proc = env.get(elemento);
                         Object[] args = new Object[list.size() - 1];
@@ -234,12 +244,6 @@ public class Interpreter {
         return one.byteValue()/two.byteValue();
     }
 
-    static boolean Atom(CharSequence val){//Funcion atom
-        if (val instanceof String|| val instanceof Number){
-            return true;
-        }
-        return false;
-    }
 
     static Number abs(Number val) {//VALOR ASBSOLUTO
         if (val instanceof Double) {
