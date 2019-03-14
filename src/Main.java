@@ -78,11 +78,7 @@ public class Main extends JFrame implements ActionListener{
                 }
                 if (input == null || input.equals("quit")) break;
                 try {
-                    String retorno = " ";
-                    retorno = retorno + Arrays.toString(Interpreter.reemplazar(input)) + "\n";
-                    retorno = retorno + Interpreter.leer(input) + "\n";
-                    System.out.println(retorno);
-                    retorno = retorno + Interpreter.evaluate(Interpreter.leer(input)) + "\n";
+                    String retorno =  Interpreter.evaluate(Interpreter.leer(input)) + "\n";
                     salida.setText(retorno);
                     System.out.println(retorno);
                 } catch (Exception f) {
