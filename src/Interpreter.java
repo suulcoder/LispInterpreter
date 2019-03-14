@@ -1,4 +1,5 @@
-package com.company;
+
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 import static java.util.logging.Level.parse;
+import static sun.misc.Version.print;
 
 public class Interpreter {
     private static Ambiente global = new Ambiente();//Establecemos un tipo Ambiente con un map
@@ -109,33 +111,43 @@ public class Interpreter {
                         }
                         return null;
                     case "defun":
-                        List<Object> control = (List<Object>) list.get(1);
-                        List<Object> control2 = (List<Object>) list.get(2);
-                        System.out.println(control.get(0));
-                        System.out.println(control2.get(0));
-                        BinaryOperator<Number> function = (BinaryOperator<Number>) global.get(control2.get(0));
-                        global.put(control.get(0), function);
+                        try{
+                            List<Object> control = (List<Object>) list.get(1);
+                            List<Object> control2 = (List<Object>) list.get(2);
+                            String nombre = (String)control.get(0);
+                            control.remove(0);
+                            Funcion funcion = new Funcion(nombre,control,control2);
+                            global.put(nombre, funcion);
+                        }
+                        catch (Exception e){
+                            System.out.println("There is something wrong with your Function");
+                        }
+                        return null;
                     default:
                         Object proc = env.get(elemento);
                         Object[] args = new Object[list.size() - 1];
                         for (int i = 0; i < args.length; ++i) {
                             args[i] = evaluate(list.get(i + 1), env);
-                            System.out.println(args[i]);
                         }
                         if (proc instanceof UnaryOperator) {
                             @SuppressWarnings("unchecked")
                             UnaryOperator<Object> op = (UnaryOperator<Object>) proc;
                             return op.apply(args[0]);
                         } else if (proc instanceof BinaryOperator) {
-                            System.out.println(proc);
-                            @SuppressWarnings("unchecked")
                             BinaryOperator<Object> op = (BinaryOperator<Object>) proc;
-                            return op.apply(args[0], args[1]);
-                        } else if (proc instanceof Function) {
-                            System.out.println(proc);
-                            @SuppressWarnings("unchecked")
-                            Function<Object[], ?> fnc = (Function<Object[], ?>) proc;
-                            return fnc.apply(args);
+                            return op.apply((Number)args[0], (Number)args[1]);
+                        }
+                        else {
+                            Object fun = env.get(symbol);
+                            if(fun instanceof Funcion){
+                                Object[] newargs = new Object[((List<Object>) exp).size() - 1];
+                                for(int i=0;i<newargs.length;i++){
+                                    newargs[i]=((List<Object>) exp).get(i+1);
+                                }
+                                return  ((Funcion) fun).doAction(newargs);
+
+                            }
+
                         }
                 }
             }
@@ -162,7 +174,6 @@ public class Interpreter {
         } else if (one instanceof Short || two instanceof Short) {
             return one.shortValue() + two.shortValue();
         }
-
         return one.byteValue() + two.byteValue();
     }
 
