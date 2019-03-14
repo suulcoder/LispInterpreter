@@ -1,4 +1,4 @@
-package com.company;
+
 
 /**
  * Node used on the double linked list

@@ -1,4 +1,4 @@
-package com.company;
+
 
 /*Algnos metodos son tomados de los archivos de la clase*/
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package com.company;
+
 
 import javafx.scene.AmbientLight;
 
