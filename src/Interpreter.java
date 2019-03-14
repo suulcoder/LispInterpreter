@@ -1,5 +1,6 @@
 
 
+import org.omg.CORBA.Any;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 
@@ -194,6 +195,51 @@ public class Interpreter {
 
         return one.byteValue() * two.byteValue();
     }
+    static Number subtract(Number one, Number two){//Restar
+        if (one instanceof Double || two instanceof Double){
+            return one.doubleValue()-two.doubleValue();
+        }
+        else if (one instanceof Float || two instanceof Float){
+            return one.floatValue()-two.floatValue();
+        }
+        else if (one instanceof Integer || two instanceof Integer) {
+            return one.intValue() - two.intValue();
+        }
+        else if (one instanceof Long || two instanceof Long) {
+            return one.longValue() - two.longValue();
+        }
+        else if (one instanceof Short || two instanceof Short) {
+            return one.shortValue() - two.shortValue();
+        }
+
+        return one.byteValue() - two.byteValue();
+    }
+    static Number divide(Number one, Number two){//divide
+        if (one instanceof Double || two instanceof Double){
+            return one.doubleValue()/two.doubleValue();
+        }
+        else if (one instanceof Float || two instanceof Float){
+            return one.floatValue()/two.floatValue();
+        }
+        else if (one instanceof Integer || two instanceof Integer) {
+            return one.intValue()/two.intValue();
+        }
+        else if (one instanceof Long || two instanceof Long) {
+            return one.longValue()/two.longValue();
+        }
+        else if (one instanceof Short || two instanceof Short) {
+            return one.shortValue()/two.shortValue();
+        }
+
+        return one.byteValue()/two.byteValue();
+    }
+
+    static boolean Atom(CharSequence val){//Funcion atom
+        if (val instanceof String|| val instanceof Number){
+            return true;
+        }
+        return false;
+    }
 
     static Number abs(Number val) {//VALOR ASBSOLUTO
         if (val instanceof Double) {
@@ -206,5 +252,6 @@ public class Interpreter {
 
         return Math.abs(val.intValue());
     }
+
 
 }

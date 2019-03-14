@@ -64,6 +64,8 @@ public class Main extends JFrame implements ActionListener{
             interprete.getGlobal().put("+", (BinaryOperator<Number>) Interpreter::add);//Agregamos estas funciones a nuestro map
             interprete.getGlobal().put("*", (BinaryOperator<Number>) Interpreter::multiply);
             interprete.getGlobal().put("abs", (UnaryOperator<Number>) Interpreter::abs);
+            interprete.getGlobal().put("-", (BinaryOperator<Number>) Interpreter::subtract);
+            interprete.getGlobal().put("/", (BinaryOperator<Number>) Interpreter::divide);
 
             while (true) {
                 System.out.print(">>>");
