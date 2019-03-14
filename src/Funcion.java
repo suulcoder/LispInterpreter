@@ -30,7 +30,6 @@ public class Funcion {
         accion = accion.replaceAll("]",")");
         accion = accion.replaceAll("[\\[]", "(");
         accion = accion.replaceAll(",","");
-        System.out.println(accion);
         try {
             return Interpreter.evaluate(Interpreter.leer(accion));
         } catch (Exception f) {
@@ -49,9 +48,6 @@ public class Funcion {
             }
             else{
                 for (int j=0;j<args.size();j++){
-                    System.out.println(retorno);
-                    System.out.println(action);
-                    System.out.println(args);
                     if(args.get(j).equals(action.get(i))){
                         retorno = retorno +realArgs[j];
                     }

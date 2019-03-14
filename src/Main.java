@@ -59,7 +59,7 @@ public class Main extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if("empezar".equals((e.getActionCommand()))){
+        if("empezar".equals((e.getActionCommand()))) {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
             Interpreter interprete = new Interpreter();
@@ -77,29 +77,27 @@ public class Main extends JFrame implements ActionListener{
                         Paths.get("datos.txt"),
                         StandardCharsets.UTF_8
                 );
-                lines.forEach(s ->{
+                lines.forEach(s -> {
                     if (s == null || s.equals("quit"))
-                    try {
-                        String retorno = " ";
-                        retorno = retorno + Arrays.toString(Interpreter.reemplazar(s)) + "\n";
-                        retorno = retorno + Interpreter.leer(s) + "\n";
-                        System.out.println(retorno);
-                        retorno = retorno + Interpreter.evaluate(Interpreter.leer(s)) + "\n";
-                        salida.setText(retorno);
-                        System.out.println(retorno);
-                        lineCounter[0] +=1;
+                        try {
+                            String retorno = " ";
+                            retorno = retorno + Arrays.toString(Interpreter.reemplazar(s)) + "\n";
+                            retorno = retorno + Interpreter.leer(s) + "\n";
+                            System.out.println(retorno);
+                            retorno = retorno + Interpreter.evaluate(Interpreter.leer(s)) + "\n";
+                            salida.setText(retorno);
+                            System.out.println(retorno);
+                            lineCounter[0] += 1;
 
-                    } catch (Exception f) {
-                        f.printStackTrace();
-                        System.out.println("Error en linea"+lineCounter[0]);
-                    }
+                        } catch (Exception f) {
+                            f.printStackTrace();
+                            System.out.println("Error en linea:" + lineCounter[0]);
+                        }
 
                 });
-            }catch (IOException exception){
+            } catch (IOException exception) {
                 System.out.println("Error");
             }
-
-
         }
         else{
             if("RESET".equals((e.getActionCommand()))){
