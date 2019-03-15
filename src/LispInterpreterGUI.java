@@ -18,6 +18,7 @@ public class LispInterpreterGUI extends JFrame  {
     private JButton interpreterButton;
     private JTextArea outPutInterpreter;
     private JButton loadPathButton;
+    private String path = "";
 
 
     public LispInterpreterGUI() {
@@ -27,10 +28,7 @@ public class LispInterpreterGUI extends JFrame  {
         loadPathButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                try {readTheRawCode();}
-                catch (IOException error){
-                    error.printStackTrace();
-                }
+                path = textPathDirectory.getText();
             }
         });
 
@@ -51,7 +49,7 @@ public class LispInterpreterGUI extends JFrame  {
 
                 try {
                     Stream<String> lines = Files.lines(
-                            Paths.get("datos.txt"),
+                            Paths.get(path),
                             StandardCharsets.UTF_8
                     );
                     lines.forEach(s -> {
@@ -88,9 +86,9 @@ public class LispInterpreterGUI extends JFrame  {
     }
     //method for read the code an write it on a local text file
     private void readTheRawCode() throws IOException {
-        String rawCode = textPathDirectory.getText();
+        String path = textPathDirectory.getText();
         BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\rober\\OneDrive\\Documentos\\GitHub\\LispInterpreter\\src\\program_txt"));
-        writer.write(rawCode);
+        writer.write(path);
         writer.close();
     }
 
