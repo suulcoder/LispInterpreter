@@ -16,7 +16,6 @@ public static void main(String[]args){
                         frame.setSize(600,600);
                         frame.pack();
                         frame.setVisible(true);
-
                 }
         });
 

@@ -29,6 +29,7 @@ public class LispInterpreterGUI extends JFrame  {
             @Override
             public void actionPerformed(ActionEvent e){
                 path = textPathDirectory.getText();
+
             }
         });
 
