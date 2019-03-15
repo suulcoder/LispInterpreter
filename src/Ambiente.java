@@ -7,7 +7,7 @@ import java.util.Map;
 /*These class will allow us to set an environment, with an Map with
 Objects to generalize the types.
  */
-public class Ambiente {
+public class    Ambiente {
 
     private Map<Object, Object> inner = new HashMap<Object, Object>();
     private Ambiente out;

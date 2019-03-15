@@ -136,6 +136,7 @@ public class Interpreter {
                         }catch (Exception e){
                             System.out.println("There is an error with an ATOM");
                         }
+
                     default:
                         Object proc = env.get(elemento);
                         Object[] args = new Object[list.size() - 1];
