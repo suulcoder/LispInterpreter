@@ -19,7 +19,7 @@ public class LispInterpreterGUI extends JFrame  {
     private JTextArea outPutInterpreter;
     private JButton loadPathButton;
     private String path = "";
-
+    String retorno = " ";
 
     public LispInterpreterGUI() {
         //when the button is clicked the program would star reading the lisp code on the JText area
@@ -53,26 +53,26 @@ public class LispInterpreterGUI extends JFrame  {
                             StandardCharsets.UTF_8
                     );
                     lines.forEach(s -> {
-                        if (s == null || s.equals("quit"))
+                        System.out.println(s);
+                        if (s != null || s.equals("quit"))
                             try {
-                                String retorno = " ";
-                                retorno = retorno + Arrays.toString(Interpreter.reemplazar(s)) + "\n";
-                                retorno = retorno + Interpreter.leer(s) + "\n";
-                                System.out.println(retorno);
+                                s = s.toLowerCase();
                                 retorno = retorno + Interpreter.evaluate(Interpreter.leer(s)) + "\n";
                                 outPutInterpreter.setText(retorno);
                                 System.out.println(retorno);
                                 lineCounter[0] += 1;
 
-                            } catch (Exception f) {
-                                f.printStackTrace();
-                                System.out.println("Error en linea:" + lineCounter[0]);
+                            }
+                            catch (java.lang.NullPointerException k){
+                                outPutInterpreter.setText("@<<<All Copyrights reserved for Saul Contreras, Roberto Figueroa and Michele Benvenuto>>>");
+                            }
+                            catch (Exception f) {
+                                System.out.println(retorno + "Error en linea:" + lineCounter[0]);
                             }
 
                     });
                 } catch (IOException exception) {
                     outPutInterpreter.setText("Error");
-
                 }
 
 

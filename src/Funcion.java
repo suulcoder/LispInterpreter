@@ -27,20 +27,27 @@ public class Funcion {
         catch (Exception e){
             System.out.println("This fucntion does not take given parameters");
         }
-        accion = accion.replaceAll("]",")");
-        accion = accion.replaceAll("[\\[]", "(");
-        accion = accion.replaceAll(",","");
+        if(accion.length()==3){
+            accion = accion.replaceAll("]"," ");
+            accion = accion.replaceAll("[\\[]", " ");
+        }
+        else{
+            accion = accion.replaceAll("]",")");
+            accion = accion.replaceAll("[\\[]", "(");
+            accion = accion.replaceAll(",","");
+        }
+
         try {
+            System.out.println(accion);
             return Interpreter.evaluate(Interpreter.leer(accion));
         } catch (Exception f) {
-            f.printStackTrace();
+            //f.printStackTrace();
         }
         return null;
     }
 
     private String remplazar(Object[] realArgs){
         String retorno = "";
-        System.out.println(action);
         for (int i=0;i<action.size();i++){
             if (action.get(i) instanceof  List){
                 Object[] lista = (Object[])action.get(i);
