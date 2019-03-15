@@ -99,20 +99,15 @@ public class Interpreter {
                         Object result = evaluate(list.get(2));
                         env.put(key, result);
                         return result;
-                    case "lambda":
-                        @SuppressWarnings("unchecked")
-                        List<Object> params = (List<Object>) list.get(1);
-                        return (Function<Object[], Object>)(x) -> {
-                            return evaluate(list.get(2), new Ambiente(env, params.toArray(), x));
-                        };
                     case "quote":
                         return list.get(1);
                     case "repeat":
                         int count = (Integer) list.get(1);
-                        for (int i = 0; i < count; ++i) {
-                            System.out.println(evaluate(list.get(2), env));
+                        String retorno = "";
+                        for (int i = 0; i < count; i++) {
+                            retorno = retorno + (evaluate(list.get(2), env)) +"\n";
                         }
-                        return null;
+                        return retorno;
                     case "defun":
                         try{
                             List<Object> control = (List<Object>) list.get(1);
@@ -129,9 +124,9 @@ public class Interpreter {
                     case "atom":
                         try{
                             if (list.get(1) instanceof String || list.get(1) instanceof Integer){
-                                return true;
+                                return "T";
                             }
-                            return false;
+                            return "NIL";
 
                         }catch (Exception e){
                             System.out.println("There is an error with an ATOM");
@@ -257,6 +252,5 @@ public class Interpreter {
 
         return Math.abs(val.intValue());
     }
-
 
 }

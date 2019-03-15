@@ -10,10 +10,10 @@ public static void main(String[]args){
         SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                        JFrame frame=new JFrame("panelMain");
+                        JFrame frame=new JFrame("Elisp Interpreter");
                         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         frame.setContentPane(new LispInterpreterGUI().panelMain);
-                        frame.setSize(600,600);
+                        frame.setSize(1000,1000);
                         frame.pack();
                         frame.setVisible(true);
                 }

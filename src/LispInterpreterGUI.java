@@ -59,8 +59,14 @@ public class LispInterpreterGUI extends JFrame  {
                             try {
                                 s = s.toLowerCase();
                                 retorno = retorno + Interpreter.evaluate(Interpreter.leer(s)) + "\n";
-                                outPutInterpreter.setText(retorno);
-                                System.out.println(retorno);
+                                if (retorno==null){
+                                    outPutInterpreter.setText(" ");
+                                    System.out.println(" ");
+                                }
+                                else{
+                                    outPutInterpreter.setText(retorno);
+                                    System.out.println(retorno);
+                                }
                                 lineCounter[0] += 1;
 
                             }
@@ -68,7 +74,9 @@ public class LispInterpreterGUI extends JFrame  {
                                 outPutInterpreter.setText("@<<<All Copyrights reserved for Saul Contreras, Roberto Figueroa and Michele Benvenuto>>>");
                             }
                             catch (Exception f) {
-                                System.out.println(retorno + "Error en linea:" + lineCounter[0]);
+                                retorno = retorno + "Error en linea:" + lineCounter[0] + "\n";
+                                outPutInterpreter.setText(retorno);
+                                System.out.println(retorno);
                             }
 
                     });
