@@ -1,9 +1,10 @@
 (DEFUN (queTanBienLeCaigoADiego nombre) (0))
 (DEFUN (cuantosPuntosVoyASacarSiNoHeEmpezado puntos)(* (+ (+ puntos 2) 7)(queTanBienLeCaigoADiego "Juanito")))
 (cuantosPuntosVoyASacarSiNoHeEmpezado 100)
-(if 1 1 1 0)
+(if = 2 2 1 0)
+(Equal 2 2 3 4)
 (ATOM (LIST 1 2 3 4 5))
-(define x 2
+(define x 2)
 x
 58
 (repeat 5 (set! x (+ x 1)))

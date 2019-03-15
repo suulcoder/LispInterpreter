@@ -46,6 +46,8 @@ public class LispInterpreterGUI extends JFrame  {
                 interprete.getGlobal().put("abs", (UnaryOperator<Number>) Interpreter::abs);
                 interprete.getGlobal().put("-", (BinaryOperator<Number>) Interpreter::subtract);
                 interprete.getGlobal().put("/", (BinaryOperator<Number>) Interpreter::divide);
+                interprete.getGlobal().put(">", (BinaryOperator<Boolean>) Interpreter::greater_than);
+                interprete.getGlobal().put("<", (BinaryOperator<Boolean>) Interpreter::smaller_than);
                 final Integer[] lineCounter = {1};
 
                 try {

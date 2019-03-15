@@ -1,6 +1,7 @@
 
 
 import org.omg.CORBA.Any;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 
@@ -81,10 +82,18 @@ public class Interpreter {
                 String symbol = (String) elemento;
                 switch (symbol) {
                     /*Evaluamos si el comando es:*/
-                    case "if": {
-                        boolean result = !evaluate(list.get(1), env).equals(0);
-                        Object action = result ? list.get(2) : list.get(3);
-                        return evaluate(action, env);//devolvemos hasta que no se repita mas el ciclo
+                    case "equal": {
+                        boolean result = Interpreter.evaluate(list.get(1), env)==Interpreter.evaluate(list.get(2));
+                        return  result;
+                    }
+                    case "=":
+                        return list.get(1).equals(list.get(2));
+                    case "cond":{
+                        boolean condicional = (Boolean)Interpreter.evaluate(list.get(1));
+                        if(condicional){
+                            return (Interpreter.evaluate(list.get(2)));
+                        }
+                        return condicional;
                     }
                     case "define": {
                         Object result = evaluate(list.get(2), env);
@@ -101,6 +110,8 @@ public class Interpreter {
                         return result;
                     case "quote":
                         return list.get(1);
+                    case "write":
+                        return Interpreter.evaluate(list.get(1));
                     case "repeat":
                         int count = (Integer) list.get(1);
                         String retorno = "";
@@ -124,9 +135,9 @@ public class Interpreter {
                     case "atom":
                         try{
                             if (list.get(1) instanceof String || list.get(1) instanceof Integer){
-                                return "T";
+                                return true;
                             }
-                            return "NIL";
+                            return false;
 
                         }catch (Exception e){
                             System.out.println("There is an error with an ATOM");
@@ -168,6 +179,52 @@ public class Interpreter {
 
     public static Object evaluate(Object exp) {//evaluar
         return evaluate(exp, global);
+    }
+
+    public static Boolean greater_than(Object param,Object param_two){
+        if(param instanceof Number || param_two instanceof Number){
+            Number one = (Number)param;
+            Number two = (Number)param_two;
+            if (one instanceof Double || two instanceof Double) {
+                return one.doubleValue() > two.doubleValue();
+            } else if (one instanceof Float || two instanceof Float) {
+                return one.floatValue() > two.floatValue();
+            } else if (one instanceof Integer || two instanceof Integer) {
+                return one.intValue() > two.intValue();
+            } else if (one instanceof Long || two instanceof Long) {
+                return one.longValue() > two.longValue();
+            } else if (one instanceof Short || two instanceof Short) {
+                return one.shortValue() > two.shortValue();
+            }
+            return one.byteValue() > two.byteValue();
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public static Boolean smaller_than(Object param,Object param_two){
+        if(param instanceof Number || param_two instanceof Number){
+            Number one = (Number)param;
+            Number two = (Number)param_two;
+            if (one instanceof Double || two instanceof Double) {
+                return one.doubleValue() < two.doubleValue();
+            } else if (one instanceof Float || two instanceof Float) {
+                return one.floatValue() < two.floatValue();
+            } else if (one instanceof Integer || two instanceof Integer) {
+                return one.intValue() < two.intValue();
+            } else if (one instanceof Long || two instanceof Long) {
+                return one.longValue() < two.longValue();
+            } else if (one instanceof Short || two instanceof Short) {
+                return one.shortValue() < two.shortValue();
+            }
+            return one.byteValue() < two.byteValue();
+        }
+        else{
+            return false;
+        }
+
     }
 
     /*A continuacion aparecen las funciones logicas*/
