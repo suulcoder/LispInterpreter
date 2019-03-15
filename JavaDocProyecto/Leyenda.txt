@@ -1,0 +1,13 @@
+azul= salidas de tierra
+rojo= salidas de voltaje
+negro = salidas del boton 
+cafe oscuro= salidas del timer de reloj
+amarillo = operaciones relacionadas con la salida E2 prima
+verde claro = operaciones ralacionadas con la salida E1 prima
+anaranjado = operaciones realacionadas con la salida E0 prima
+celeste= operaciones para led 1
+blanco = operaciones para led 2
+morado = operaciones para led 3
+rosado = operaciones para led 5
+gris = operaciones para led 6
+verde oscuro= operaciones para led 7
