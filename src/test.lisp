@@ -5,10 +5,10 @@
 (Equal 2 2 3 4)
 (ATOM (LIST 1 2 3 4 5))
 (define x 2)
-x
+
 58
 (repeat 5 (set! x (+ x 1)))
 (set! x (+ x 1))
-x
+
 (quote "hola_mundo")
 (abs -100)
